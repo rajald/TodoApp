@@ -1,0 +1,5 @@
+- MVVM clean Architecture with Kotlin Jetpack compose
+- Hilt Dependency Injection
+- Room database
+- Navigation Graph
+- Common Component 
