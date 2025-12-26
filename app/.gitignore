@@ -1,0 +1,8 @@
+/build
+/captures
+/*.apk
+/*.aar
+*.aab
+/*.iml
+/local.properties
+output-metadata.json

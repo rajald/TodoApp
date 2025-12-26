@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Todo App</string>
+
+    <!-- Todo Screen -->
+    <string name="title_todo_list">Todo List</string>
+    <string name="btn_delete_todos">Delete Todos</string>
+
+    <!--Add Todo Screen-->
+    <string name="title_add_todo">Add Todo</string>
+    <string name="txt_enter_todo">Enter Todo</string>
+    <string name="btn_add_todo">Add Todo</string>
+    <string name="hint_enter_todo_name">Enter Todo Name</string>
+    <string name="msg_todo_added_successfully">Todo Added Successfully</string>
+</resources>
