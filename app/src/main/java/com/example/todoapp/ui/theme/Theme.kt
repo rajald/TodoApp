@@ -11,24 +11,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = DarkColorPalette.primary,
+    secondary = DarkColorPalette.secondary,
+    tertiary = DarkColorPalette.tertiary
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Primary,
-    surface = Surface,
-    background = Background,
-    secondary = Secondary,
-    tertiary = Tertiary,
+    primary = LightColorPalette.primary,
+    surface = LightColorPalette.surface,
+    background = LightColorPalette.background,
+    secondary = LightColorPalette.secondary,
+    tertiary = LightColorPalette.tertiary,
 )
 
 @Composable
 fun TodoAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -44,6 +44,7 @@ fun TodoAppTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        shapes = Shapes,
         content = content
     )
 }

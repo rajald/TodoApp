@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.todoapp.design_system.Shapes
 
 @Composable
 fun TodoTextField(
@@ -52,7 +51,7 @@ fun TodoTextField(
                 )
             },
             textStyle = MaterialTheme.typography.bodyLarge,
-            shape = Shapes.small,
+            shape = MaterialTheme.shapes.small,
             lineLimits = if (isSingleLine) {
                 TextFieldLineLimits.SingleLine
             } else {
