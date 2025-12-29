@@ -3,3 +3,5 @@
 - Room database
 - Navigation Graph
 - Common Component 
+- Adaptive layout
+- UI State management
