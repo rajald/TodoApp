@@ -1,4 +1,4 @@
-package com.example.todoapp.component
+package com.example.todoapp.design_system.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppBar(
+fun TodoAppBar(
     title: String,
     showBack: Boolean = false,
     onBackClick: () -> Unit = {}

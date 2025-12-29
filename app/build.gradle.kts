@@ -57,16 +57,32 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
+    //Room Database
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.compose.material.icons.extended)
     ksp(libs.room.compiler)
     implementation(libs.androidx.room.ktx)
+
+    //Material 3
+    implementation(libs.androidx.material3)
+
+    //Material Icon
+    implementation(libs.androidx.compose.material.icons.extended)
+
+    //Adaptive Screen
+    implementation(libs.androidx.compose.adaptive.navigation)
+    implementation(libs.androidx.compose.adaptive)
+
+    //Hilt Dependency Injection
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+
+    //Hilt Navigation Graph
     implementation(libs.androidx.hilt.navigation.compose)
+
+    //Navigation Graph
     implementation(libs.androidx.navigation.compose)
 
+    //Test Cases
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

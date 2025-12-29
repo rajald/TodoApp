@@ -4,7 +4,8 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todoapp.domain.model.TodoItem
+import com.example.todoapp.domain.model.TodoItemData
+import com.example.todoapp.domain.model.TodoItemListState
 import com.example.todoapp.domain.usecase.AddTodoUseCases
 import com.example.todoapp.domain.usecase.DeleteTodoUseCases
 import com.example.todoapp.domain.usecase.GetTodosUseCases
@@ -27,50 +28,68 @@ class TodoViewModel @Inject constructor(
     private val deleteTodoUseCase: DeleteTodoUseCases
 ) : ViewModel() {
     // The private mutable state that can be updated internally OR Backing property for internal state management
-    private val _todoItemList = MutableStateFlow(listOf<TodoItem>())
+    private val _todoItemDataListState = MutableStateFlow(TodoItemListState(isLoading = true))
+
     // The publicly exposed read-only StateFlow for observation OR Read-only StateFlow exposed to the UI (Activity/Fragment/Compose)
-    val todoItemList: StateFlow<List<TodoItem>> = _todoItemList.asStateFlow()
+    val todoItemDataListState: StateFlow<TodoItemListState> = _todoItemDataListState.asStateFlow()
     val todoLabelState = TextFieldState(initialText = "")
     val todoLabelText get() = todoLabelState.text.toString()
     val todos = getTodosUseCase()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
     init {
         getTodos()
     }
+
     fun getTodos() {
         viewModelScope.launch {
-            getTodosUseCase().collect { todoList ->
-                _todoItemList.value = todoList
+            try {
+                getTodosUseCase().collect { todoList ->
+                    _todoItemDataListState.update {
+                        it.copy(
+                            isLoading = false,
+                            todoItemList = todoList,
+                            errorMessage = null
+                        )
+                    }
+                }
+            } catch (e: Exception) {
+                _todoItemDataListState.update {
+                    it.copy(isLoading = false, errorMessage = e.message)
+                }
             }
         }
     }
+
     fun addTodo(title: String) {
         viewModelScope.launch {
-            addTodoUseCase(TodoItem(id = 0, title = title, isDone = false))
+            addTodoUseCase(TodoItemData(id = 0, title = title, isDone = false))
         }
     }
 
     fun updateTodoList(index: Int, isDone: Boolean) {
         viewModelScope.launch {
-            _todoItemList.update { currentList ->
-                val updatedList = currentList.toMutableList()
+            _todoItemDataListState.update { currentList ->
+                val updatedList = currentList.todoItemList.toMutableList()
                 updatedList[index] = updatedList[index].copy(isDone = isDone)
-                updatedList.toList()
+                currentList.copy(
+                    todoItemList = updatedList.toList()
+                )
             }
-            updateTodoUseCase(_todoItemList.value[index].id)
+            updateTodoUseCase(_todoItemDataListState.value.todoItemList[index].id)
         }
     }
 
     fun deleteTodos() {
         viewModelScope.launch {
-            val selectedTodosID = _todoItemList.value.filter { it.isDone }.map { it.id }
+            val selectedTodosID = _todoItemDataListState.value.todoItemList.filter { it.isDone }.map { it.id }
             deleteTodoUseCase(selectedTodosID)
         }
     }
 
-    fun deleteTodoItem(todoItem: TodoItem) {
+    fun deleteTodoItem(todoItemData: TodoItemData) {
         viewModelScope.launch {
-            deleteTodoUseCase(todoItem)
+            deleteTodoUseCase(todoItemData)
         }
     }
 

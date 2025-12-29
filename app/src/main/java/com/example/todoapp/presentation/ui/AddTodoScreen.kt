@@ -13,29 +13,34 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.todoapp.R
-import com.example.todoapp.component.AppBar
-import com.example.todoapp.component.AppButton
-import com.example.todoapp.component.AppTextField
+import com.example.todoapp.design_system.component.TodoAppBar
+import com.example.todoapp.design_system.component.TodoButton
+import com.example.todoapp.design_system.component.TodoTextField
 import com.example.todoapp.presentation.viewmodel.TodoViewModel
 
 @Composable
-fun AddTodoScreen(onBackClick: () -> Unit) {
+fun AddTodoScreen(
+    showBack: Boolean,
+    onBackClick: () -> Unit = {}
+) {
     val viewModel: TodoViewModel = hiltViewModel()
     val context = LocalContext.current
     val todoMessageText = stringResource(R.string.msg_todo_added_successfully)
 
     Scaffold(
         topBar = {
-            AppBar(
+            TodoAppBar(
                 title = stringResource(R.string.title_add_todo),
-                showBack = true,
+                showBack = showBack,
                 onBackClick = onBackClick
             )
         },
         bottomBar = {
-            AppButton(
-                modifier = Modifier.padding(bottom = 16.dp, start = 24.dp, end = 24.dp),
-                label = stringResource(R.string.btn_add_todo),
+            TodoButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp, start = 24.dp, end = 24.dp),
+                text = stringResource(R.string.btn_add_todo),
                 onClick = {
                     // Add TodoItem into Database
                     viewModel.addTodo(viewModel.todoLabelText)
@@ -53,10 +58,10 @@ fun AddTodoScreen(onBackClick: () -> Unit) {
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                AppTextField(
+                TodoTextField(
                     state = viewModel.todoLabelState,
-                    placeHolder = stringResource(R.string.hint_enter_todo_name),
-                    label = stringResource(R.string.txt_enter_todo),
+                    hint = stringResource(R.string.hint_enter_todo_name),
+                    label = stringResource(R.string.txt_todo_name),
                 )
             }
         }

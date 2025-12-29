@@ -12,14 +12,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.todoapp.presentation.ui.AddTodoScreen
-import com.example.todoapp.presentation.ui.TodoScreen
+import com.example.todoapp.presentation.ui.TodoListScreen
+import com.example.todoapp.presentation.ui.TodoMainScreen
 
 const val SCREEN_TRANSITION_MILLIS = 500
 
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    startDestination: String = NavigationItem.TodoScreen.route
+    startDestination: String = NavigationItem.TodoMainScreen.route
 ) {
 
     NavHost(
@@ -66,8 +67,14 @@ fun AppNavHost(
             )
         ) }*/
     ) {
-        composable(NavigationItem.TodoScreen.route) {
-            TodoScreen(
+        composable(NavigationItem.TodoMainScreen.route) {
+            TodoMainScreen(
+                navigateToAddTodoScreen = {
+                    navController.navigate(NavigationItem.AddTodoScreen.route)
+                })
+        }
+        composable(NavigationItem.TodoListScreen.route) {
+            TodoListScreen(
                 navigateToAddTodoScreen = {
                     navController.navigate(NavigationItem.AddTodoScreen.route)
                 }
@@ -75,6 +82,7 @@ fun AppNavHost(
         }
         composable(NavigationItem.AddTodoScreen.route) {
             AddTodoScreen(
+                showBack = true,
                 onBackClick = { navController.popBackStack() }
             )
         }

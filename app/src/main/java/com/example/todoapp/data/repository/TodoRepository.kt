@@ -1,12 +1,12 @@
 package com.example.todoapp.data.repository
 
-import com.example.todoapp.domain.model.TodoItem
+import com.example.todoapp.domain.model.TodoItemData
 import kotlinx.coroutines.flow.Flow
 
 interface TodoRepository {
-    fun getTodos(): Flow<List<TodoItem>>
-    suspend fun addTodo(todoItem: TodoItem)
+    fun getTodos(): Flow<List<TodoItemData>>
+    suspend fun addTodo(todoItemData: TodoItemData)
     suspend fun toggleTodo(id: Int)
     suspend fun deleteTodos(ids: List<Int>)
-    suspend fun deleteTodo(todoItem: TodoItem)
+    suspend fun deleteTodo(todoItemData: TodoItemData)
 }
