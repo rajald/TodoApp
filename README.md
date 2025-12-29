@@ -5,3 +5,4 @@
 - Common Component 
 - Adaptive layout
 - UI State management
+- Light/Dark Mode App Theme 
