@@ -8,7 +8,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.todoapp.design_system.Shapes
 
 @Composable
 fun TodoButton(
@@ -20,7 +19,7 @@ fun TodoButton(
     Button(
         modifier = modifier,
         onClick = onClick,
-        shape = Shapes.medium,
+        shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary
         ),
