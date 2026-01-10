@@ -5,4 +5,5 @@
 - Common Component 
 - Adaptive layout
 - UI State management
-- Light/Dark Mode App Theme 
+- Light/Dark Mode App Theme
+- Retrofit Api call with local data sync
