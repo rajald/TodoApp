@@ -22,7 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,19 +33,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.todoapp.R
 import com.example.todoapp.design_system.component.TodoAppBar
 import com.example.todoapp.design_system.component.TodoButton
 import com.example.todoapp.design_system.component.TodoCheckBox
 import com.example.todoapp.design_system.component.TodoCircularProgressBar
+import com.example.todoapp.design_system.component.TodoErrorMessage
 import com.example.todoapp.presentation.viewmodel.TodoViewModel
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 fun TodoListScreen(navigateToAddTodoScreen: (() -> Unit)? = null) {
     val viewModel: TodoViewModel = hiltViewModel()
-    val todoItemDataListState by viewModel.todoItemDataListState.collectAsState()
-    val enableDeleteButton = todoItemDataListState.todoItemList.any { it.isDone }
+
+    LaunchedEffect(Unit) {
+        viewModel.getTodos()
+    }
+
+    val todoItemDataListState by viewModel.todoItemDataListState.collectAsStateWithLifecycle()
+    val enableDeleteButton = todoItemDataListState.todoItemList.any { it.isCompleted }
     Scaffold(
         topBar = {
             TodoAppBar(
@@ -93,17 +100,12 @@ fun TodoListScreen(navigateToAddTodoScreen: (() -> Unit)? = null) {
 @Composable
 fun TodoList(modifier: Modifier) {
     val viewModel: TodoViewModel = hiltViewModel()
-    val todoItemListState by viewModel.todoItemDataListState.collectAsState()
+    val todoItemListState by viewModel.todoItemDataListState.collectAsStateWithLifecycle()
     Box(modifier = modifier) {
         when {
             todoItemListState.isLoading -> {
                 // Show a loading indicator
                 TodoCircularProgressBar()
-            }
-
-            todoItemListState.errorMessage != null -> {
-                // Show an error message
-                Text(text = "Error: ${todoItemListState.errorMessage}")
             }
 
             todoItemListState.todoItemList.isEmpty() -> {
@@ -114,23 +116,33 @@ fun TodoList(modifier: Modifier) {
             else -> {
                 // Show the actual list data
                 // Show data once loading is complete
-                LazyColumn {
-                    itemsIndexed(todoItemListState.todoItemList) { index, todo ->
-                        var isChecked by remember { mutableStateOf(todo.isDone) }
-                        TodoCheckBox(
-                            label = todo.title,
-                            checked = isChecked,
-                            onCheckedChange = {
-                                isChecked = it
-                                viewModel.updateTodoList(index = index, isDone = isChecked)
-                            },
-                            onTrailingIconClick = {
-                                viewModel.deleteTodoItem(todo)
-                            },
-                            showTrailingIcon = true
+                Column {
+                    if (todoItemListState.errorMessage.isNullOrEmpty().not()) {
+                        // Show an error message
+                        TodoErrorMessage(
+                            errorMessage = "${todoItemListState.errorMessage}"
                         )
-                        if (index == todoItemListState.todoItemList.size.minus(1)) {
-                            Spacer(modifier = Modifier.height(72.dp))
+                    }
+                    LazyColumn {
+                        itemsIndexed(
+                            items = todoItemListState.todoItemList,
+                        ) { index, todo ->
+                            var isChecked by remember { mutableStateOf(todo.isCompleted) }
+                            TodoCheckBox(
+                                label = todo.book_title,
+                                checked = isChecked,
+                                onCheckedChange = {
+                                    isChecked = it
+                                    viewModel.updateTodoList(index = index, isCompleted = isChecked)
+                                },
+                                onTrailingIconClick = {
+                                    viewModel.deleteTodoItem(todo)
+                                },
+                                showTrailingIcon = true
+                            )
+                            if (index == todoItemListState.todoItemList.size.minus(1)) {
+                                Spacer(modifier = Modifier.height(72.dp))
+                            }
                         }
                     }
                 }

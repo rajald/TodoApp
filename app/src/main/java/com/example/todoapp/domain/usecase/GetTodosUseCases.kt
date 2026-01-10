@@ -1,10 +1,10 @@
 package com.example.todoapp.domain.usecase
 
 import com.example.todoapp.data.repository.TodoRepository
-import com.example.todoapp.domain.model.TodoItemData
+import com.example.todoapp.domain.model.TodoItemListState
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetTodosUseCases @Inject constructor(private val repository: TodoRepository) {
-    operator fun invoke(): Flow<List<TodoItemData>> = repository.getTodos()
+    suspend operator fun invoke(): Flow<TodoItemListState> = repository.getTodos()
 }
