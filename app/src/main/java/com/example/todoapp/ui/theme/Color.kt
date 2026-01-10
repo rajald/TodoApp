@@ -12,7 +12,8 @@ data class TodoColors(
     val onSecondary: Color = Color.White,
     val onTertiary: Color = Color.White,
     val onBackground: Color = Color(0xFF1C1B1F),
-    val onSurface: Color = Color(0xFF1C1B1F)
+    val onSurface: Color = Color(0xFF1C1B1F),
+    val error: Color = Color.Red,
 )
 val LightColorPalette = TodoColors(
     primary = Color(0xFF6650a4),
@@ -20,6 +21,7 @@ val LightColorPalette = TodoColors(
     background = Color(0xFFFFFBFE),
     secondary = Color(0xFF625b71),
     tertiary = Color(0xFF7D5260),
+    error = Color(0XFFFF0000)
 )
 
 val DarkColorPalette = TodoColors(
@@ -27,5 +29,6 @@ val DarkColorPalette = TodoColors(
     surface = Color(0xFF1C1B1F),
     background = Color(0xFF1C1B1F),
     secondary = Color(0xFFCCC2DC),
-    tertiary = Color(0xFFEFB8C8)
+    tertiary = Color(0xFFEFB8C8),
+    error = Color(0XFFFF0000)
 )
