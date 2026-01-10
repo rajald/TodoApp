@@ -7,7 +7,7 @@
 
     <!--Add Todo Screen-->
     <string name="title_add_todo">Add Todo</string>
-    <string name="txt_enter_todo">Enter Todo</string>
+    <string name="txt_todo_name">Todo Name</string>
     <string name="btn_add_todo">Add Todo</string>
     <string name="hint_enter_todo_name">Enter Todo Name</string>
     <string name="msg_todo_added_successfully">Todo Added Successfully</string>

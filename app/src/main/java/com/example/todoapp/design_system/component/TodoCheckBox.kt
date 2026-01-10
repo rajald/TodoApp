@@ -1,4 +1,4 @@
-package com.example.todoapp.component
+package com.example.todoapp.design_system.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun AppCheckBox(
+fun TodoCheckBox(
     label: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
