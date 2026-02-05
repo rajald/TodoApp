@@ -32,7 +32,7 @@ The project is structured into three main layers to ensure **Separation of Conce
 
 ## 🛠️ How to Use
 
-1. Clone the repository: `git clone [Your-Link-Here]`
+1. Clone the repository: `git clone [https://github.com/rajald/TodoApp.git]`
 2. Open in **Android Studio (Ladybug or newer)**.
 3. Sync Gradle and run on an emulator or physical device.
 
