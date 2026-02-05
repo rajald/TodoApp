@@ -33,8 +33,7 @@ class TodoViewModel @Inject constructor(
     val todoLabelState = TextFieldState(initialText = "")
     val todoLabelText get() = todoLabelState.text.toString()
    /* val todos = getTodosUseCase()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-*/
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), TodoItemListState())*/
     fun getTodos() {
         viewModelScope.launch {
             _todoItemDataListState.update { it.copy(isLoading = true) }
