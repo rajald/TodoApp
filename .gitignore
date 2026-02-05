@@ -1,23 +1,48 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries/
-.idea/dictionaries/
+# --- Android ---
+# Built artifacts
+*.apk
+*.aab
+*.dex
+
+# Build folders
+bin/
+gen/
+out/
+build/
+.gradle/
+
+# --- IDE (Android Studio) ---
+.idea/workspace.xml
 .idea/tasks.xml
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-/.idea/deploymentTargetSelector.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+.idea/dictionaries/
+.idea/shelf/
+.idea/assetWizardSettings.xml
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/caches
+.idea/libraries/
+.idea/deploymentTargetSelector.xml
+*.iml
+captures/
+
+# IDE UI settings
+.idea/markdown.xml
+
+# --- Local Secrets (NEVER COMMIT THESE) ---
 local.properties
+.secrets
+secrets.properties
+api_keys.properties
 *.jks
 *.keystore
+.cxx
 google-services.json
-captures/
 *.log
+
+# --- System/OS ---
+.DS_Store
+Thumbs.db
+
+# WE ARE COMMITTING THESE (Exclude from ignore)
+!.idea/inspectionProfiles/Project_Default.xml
+!.idea/codeStyles/
