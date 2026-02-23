@@ -126,6 +126,7 @@ fun TodoList(modifier: Modifier) {
                     LazyColumn {
                         itemsIndexed(
                             items = todoItemListState.todoItemList,
+                            key = { _, todo -> todo.id}
                         ) { index, todo ->
                             var isChecked by remember { mutableStateOf(todo.isCompleted) }
                             TodoCheckBox(
