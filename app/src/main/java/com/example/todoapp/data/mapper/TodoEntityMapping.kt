@@ -1,12 +1,12 @@
-package com.example.todoapp.data.mapping
+package com.example.todoapp.data.mapper
 
 import com.example.todoapp.data.datasource.TodoEntity
 import com.example.todoapp.domain.model.TodoItemData
 
-fun TodoEntity.todoTaskMapping(): TodoItemData {
-    return TodoItemData(
+fun TodoItemData.todoEntityMapping(): TodoEntity{
+    return TodoEntity(
         id = this.id,
-        book_title = this.title,
+        title = this.book_title,
         isCompleted = this.isCompleted
     )
 }

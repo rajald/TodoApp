@@ -7,8 +7,8 @@ import com.example.todoapp.BuildConfig
 import com.example.todoapp.data.datasource.TodoDao
 import com.example.todoapp.data.datasource.TodoDatabase
 import com.example.todoapp.data.network.ApiService
-import com.example.todoapp.data.repository.TodoRepository
 import com.example.todoapp.data.repository.TodoRepositoryImpl
+import com.example.todoapp.domain.repository.TodoRepository
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import dagger.Module
@@ -26,7 +26,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    private const val BASE_URL = "https://68d55640e29051d1c0ae3ff1.mockapi.io/"
 
     @Provides
     fun provideRepository(dao: TodoDao, api: ApiService): TodoRepository =
@@ -74,7 +73,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
