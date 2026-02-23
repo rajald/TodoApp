@@ -1,4 +1,4 @@
-package com.example.todoapp.data.repository
+package com.example.todoapp.domain.repository
 
 import com.example.todoapp.domain.model.TodoItemData
 import com.example.todoapp.domain.model.TodoItemListState
